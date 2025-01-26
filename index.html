@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="color-scheme" content="light dark" />
+    <title>Calculator 2.0</title>
+    <link href="style.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script type="importmap">
+      {
+        "imports": {
+          "@material/web/": "https://esm.run/@material/web/"
+        }
+      }
+    </script>
+    <script type="module">
+      import "@material/web/all.js";
+      import { styles as typescaleStyles } from "@material/web/typography/md-typescale-styles.js";
+
+      document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+    </script>
+  </head>
+
+  <body>
+    <div id="calculator-container" class="page active">
+      <div class="header">
+        <button
+          onclick="showElement('settings')"
+          class="material-icons"
+          id="setting"
+        >
+          settings
+        </button>
+        <button
+          onclick="showElement('historyContainer')"
+          class="material-icons"
+          id="setting"
+        >
+          history
+        </button>
+        <button class="material-icons switch" onclick="navigate('conversion')">
+          arrow_right
+        </button>
+      </div>
+      <div class="liv" id="settings">
+        <h2>Settings</h2>
+        <md-list class="list">
+          <!-- Font Setting -->
+          <div class="cont" id="font">
+            <md-list-item>
+              <div class="he" slot="headline">Default Font</div>
+              <div class="su" slot="supporting-text">
+                Enable the default font style for better readability.
+              </div>
+            </md-list-item>
+            <md-switch id="fontDef"></md-switch>
+          </div>
+
+          <!-- Degree to Radian Setting -->
+          <div class="cont" id="degToRad">
+            <md-list-item>
+              <div class="he" slot="headline">Use Degrees</div>
+              <div class="su" slot="supporting-text">
+                Switch to degree mode for trigonometric calculations (default is
+                radians).
+              </div>
+            </md-list-item>
+            <md-switch id="rad"></md-switch>
+          </div>
+
+          <!-- Fraction Setting -->
+          <div class="cont" id="frac">
+            <md-list-item>
+              <div class="he" slot="headline">Use Fractions</div>
+              <div class="su" slot="supporting-text">
+                Display results as fractions instead of decimals where
+                applicable.
+              </div>
+            </md-list-item>
+            <md-switch id="fraction"></md-switch>
+          </div>
+
+          <!-- Round-Off Setting -->
+          <div class="cont" id="round">
+            <md-list-item>
+              <div class="he" slot="headline">Round-Off Values</div>
+              <div class="su" slot="supporting-text">
+                Round decimal results to the nearest two decimal places for
+                simplicity.
+              </div>
+            </md-list-item>
+            <md-switch id="roundOff"></md-switch>
+          </div>
+        </md-list>
+      </div>
+
+      <div class="wrap">
+        <div id="display"></div>
+        <div id="resultDisplay"></div>
+        <div id="calculator-toolbar">
+          <button class="operator2">√</button>
+          <button class="operator2">^</button>
+          <button class="operator2">!</button>
+          <button class="operator2">π</button>
+          <button onclick="showElement('other')" class="arrow-btn">
+            <span class="material-icons arrow">arrow_downward</span>
+          </button>
+        </div>
+      </div>
+      <div id="calculator">
+        <div class="liv" id="other">
+          <div class="row1">
+            <button class="op">log</button>
+            <button class="op">cos</button>
+            <button class="op">tan</button>
+            <button class="op">sin</button>
+          </div>
+          <div class="row2">
+            <button class="op">e</button>
+            <button class="op">sec</button>
+            <button class="op">cot</button>
+            <button class="op">csc</button>
+          </div>
+          <div class="row2">
+            <button class="op">log10</button>
+            <button class="op">asin</button>
+            <button class="op">acos</button>
+            <button class="op">atan</button>
+          </div>
+        </div>
+        <div class="re">
+          <button class="clear" colspan="1">C</button>
+          <button colspan="1">(</button>
+          <button colspan="1">)</button>
+          <button class="operator">/</button>
+        </div>
+        <div class="re">
+          <button>7</button>
+          <button>8</button>
+          <button>9</button>
+          <button class="operator">×</button>
+        </div>
+        <div class="re">
+          <button>4</button>
+          <button>5</button>
+          <button>6</button>
+          <button class="operator">-</button>
+        </div>
+        <div class="re">
+          <button>1</button>
+          <button>2</button>
+          <button>3</button>
+          <button class="operator">+</button>
+        </div>
+        <div class="re">
+          <button>0</button>
+          <button>.</button>
+          <button
+            style="
+              font-variation-settings:
+                &quot;FILL&quot; 1,
+                &quot;wght&quot; 500,
+                &quot;GRAD&quot; 0,
+                &quot;opsz&quot; 48;
+            "
+            class="material-icons"
+            id="delete"
+          >
+            backspace
+          </button>
+          <button id="equal" class="equal">=</button>
+        </div>
+      </div>
+    </div>
+    <div class="page" id="conversion">
+      <input
+        autocomplete="off"
+        type="text"
+        id="input"
+        placeholder="Type here..."
+      />
+      <div id="sect">
+        <select id="convert-value">
+          <option value="length">Length</option>
+          <option value="differentiate">Differentiation</option>
+          <option value="mass">Mass</option>
+          <option value="temperature">Temperature</option>
+          <option value="time">Time</option>
+          <option value="speed">Speed</option>
+          <option value="volume">Volume</option>
+        </select>
+        <md-filled-button id="convertButton">Convert</md-filled-button>
+      </div>
+
+      <p id="result"></p>
+    </div>
+
+    <div id="historyContainer">
+      <h2>History</h2>
+      <ul id="history-list"></ul>
+      <md-filled-button class="clear" onclick="clearHistory()"
+        >Clear History</md-filled-button
+      >
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <script src="https://unpkg.com/mathjs@14.0.1/lib/browser/math.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
