@@ -3,27 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A simple Calculator">
 
     <meta name="color-scheme" content="light dark" />
     <title>Calculator 2.0</title>
     <link href="style.css" rel="stylesheet" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <script type="importmap">
-      {
-        "imports": {
-          "@material/web/": "https://esm.run/@material/web/"
-        }
-      }
-    </script>
-    <script type="module">
-      import "@material/web/all.js";
-      import { styles as typescaleStyles } from "@material/web/typography/md-typescale-styles.js";
-
-      document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
-    </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&icon_names=arrow_downward,arrow_right,backspace,delete,history,settings&display=block" />
+    <script type="module" src="./index.js"></script>
   </head>
 
   <body>
@@ -31,19 +17,19 @@
       <div class="header">
         <button
           onclick="showElement('settings')"
-          class="material-icons"
-          id="setting"
+          class="material-symbols-outlined setting"
+          id="settingsBtn"
         >
           settings
         </button>
         <button
           onclick="showElement('historyContainer')"
-          class="material-icons"
-          id="setting"
+          class="material-symbols-outlined setting"
+          id="historyBtn"
         >
           history
         </button>
-        <button class="material-icons switch" onclick="navigate('conversion')">
+        <button class="material-symbols-outlined switch" onclick="showElement('conversion')">
           arrow_right
         </button>
       </div>
@@ -108,7 +94,7 @@
           <button class="operator2">!</button>
           <button class="operator2">π</button>
           <button onclick="showElement('other')" class="arrow-btn">
-            <span class="material-icons arrow">arrow_downward</span>
+            <span class="material-symbols-outlined arrow">arrow_downward</span>
           </button>
         </div>
       </div>
@@ -163,12 +149,9 @@
           <button
             style="
               font-variation-settings:
-                &quot;FILL&quot; 1,
-                &quot;wght&quot; 500,
-                &quot;GRAD&quot; 0,
-                &quot;opsz&quot; 48;
+                FILL: 1,
             "
-            class="material-icons"
+            class="material-symbols-outlined"
             id="delete"
           >
             backspace
@@ -208,6 +191,8 @@
       >
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script>
     <script src="https://unpkg.com/mathjs@14.0.1/lib/browser/math.js"></script>
     <script src="script.js"></script>
   </body>

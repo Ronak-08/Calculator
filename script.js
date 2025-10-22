@@ -3,18 +3,13 @@ const calculator = document.getElementById("calculator");
 const resultDisplay = document.getElementById("resultDisplay");
 let currentInput = "";
 const toolbar = document.getElementById("calculator-toolbar");
-// Initial configuration
 let useFrac = false;
 math.config({
   number: useFrac ? "Fraction" : "BigNumber",
   precision: 18,
 });
-
-// Listen for changes in the "fraction" setting
 document.getElementById("fraction").addEventListener("change", function () {
   useFrac = this.selected;
-
-  // Reconfigure Math.js based on the current setting
   math.config({
     number: useFrac ? "Fraction" : "BigNumber",
     precision: 14,
@@ -33,21 +28,44 @@ document.getElementById("rad").addEventListener("change", function () {
   liveDisplay();
 });
 
+const showElement = (id) => {
+  const dis = document.getElementById(id);
+
+  if (getComputedStyle(dis).display === "none") {
+    dis.style.display = "flex";
+    anime({
+      targets: `#${id}`,
+      duration: 300,
+      opacity: [0, 1],
+      translateY: [-20, 0],
+      easing: "easeOutQuad",
+    });
+  } else {
+    anime({
+      targets: `#${id}`,
+      duration: 300,
+      opacity: [1, 0],
+      easing: "easeOutQuad",
+      translateY: [0, -20],
+      complete: () => {
+        dis.style.display = "none";
+      },
+    });
+  }
+};
+
+
 function convert(angle) {
   if (isDegree) {
-    // If angle is in degrees, convert to radians
     return (angle * Math.PI) / 180;
   } else {
-    // If already in radians, return as is
     return angle;
   }
 }
-// Update the main display
 function updateDisplay(value) {
   display.textContent = value || "0";
   scrollToBottom();
 }
-
 function preprocessInput(input) {
   const openCount = (input.match(/\(/g) || []).length;
   const closeCount = (input.match(/\)/g) || []).length;
@@ -89,8 +107,6 @@ function calculateTrig(input) {
     } else if (funcName === "cot") {
       return 1 / math.tan(convertedAngle);
     }
-
-    // Handle standard trig functions (sin, cos, tan)
     return math[funcName](convertedAngle);
   }
   return null;
@@ -104,8 +120,6 @@ function liveDisplay() {
     }
 
     const processedInput = preprocessInput(currentInput);
-
-    // Handle trigonometric functions
     if (
       processedInput.includes("sin") ||
       processedInput.includes("cos") ||
@@ -123,12 +137,8 @@ function liveDisplay() {
         return;
       }
     }
-
-    // Handle general expressions
     if (/[+\-*/^()!e]/.test(processedInput)) {
       let liveResult = math.evaluate(processedInput);
-
-      // Display as fraction if `useFrac` is true
       if (useFrac) {
         const fractionResult = math.fraction(liveResult);
         resultDisplay.textContent = math.format(fractionResult, {
@@ -369,31 +379,6 @@ buttons.forEach((button) => {
   button.addEventListener("click", createRipple);
 });
 
-const showElement = (id) => {
-  const dis = document.getElementById(id);
-
-  if (getComputedStyle(dis).display === "none") {
-    dis.style.display = "flex";
-    anime({
-      targets: `#${id}`,
-      duration: 300,
-      opacity: [0, 1],
-      translateY: [-20, 0],
-      easing: "easeOutQuad",
-    });
-  } else {
-    anime({
-      targets: `#${id}`,
-      duration: 300,
-      opacity: [1, 0],
-      easing: "easeOutQuad",
-      translateY: [0, -20],
-      complete: () => {
-        dis.style.display = "none";
-      },
-    });
-  }
-};
 
 document.querySelector("md-switch").addEventListener("change", function () {
   const fontFamily = this.selected
@@ -411,11 +396,6 @@ function scrollToBottom() {
     behavior: "smooth",
   });
 }
-
-function navigate(pageId) {
-  showElement(pageId);
-}
-
 const result1 = document.getElementById("result");
 const val = document.getElementById("convert-value");
 const convertButton = document.getElementById("convertButton");

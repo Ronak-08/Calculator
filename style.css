@@ -353,7 +353,7 @@ html.light span.ripple {
   z-index: 5;
 }
 
-#setting {
+.setting {
   border: none;
   color: var(--md-sys-color-on-surface-variant);
   background-color: transparent;
@@ -366,8 +366,8 @@ html.light span.ripple {
   transition: 0.2s all ease;
 }
 
-#setting:focus,
-#setting:active {
+.setting:focus,
+.setting:active {
   transform: scale(1.05);
 }
 
